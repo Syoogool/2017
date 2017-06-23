@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>postMessage跨文档消息传递</h1>
+    <p>注意！！！把a,b页面放入不同的本地服务器中 再设置url</p>
+
+    <iframe src="http://192.168.199.130:8000/b.html" name="postIframe" onload="messageLoad()"></iframe>
+
+
+    <script>
+        function messageLoad() {
+            var url = "http://192.168.199.130:8000/b.html";
+            window.postIframe.postMessage("给我tsort的信息", url); //发送数据
+        }
+
+        window.onmessage = function(e) {
+            e = e || event;
+            alert(e.data); //接收b返回的数据，在控制台有两次输出
+        }
+
+    </script>
+</body>
+
+</html>

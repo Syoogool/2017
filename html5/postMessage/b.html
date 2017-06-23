@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>postMessage</title>
+</head>
+
+<body>
+    <h1>postMessage跨文档消息传递</h1>
+    <script>
+        window.onmessage = function(e) {
+            e = e || event;
+            alert(e.data); //立即弹出a发送过来的数据
+            e.source.postMessage("好的，请稍等三秒！", e.origin); //立即回复a
+
+            var postData = {
+                name: "tsrot",
+                age: 24
+            };
+            var strData = JSON.stringify(postData); //json对象转化为字符串
+            setTimeout(function() {
+                e.source.postMessage(strData, e.origin);
+            }, 3000); //3秒后向a发送数据
+        }
+
+    </script>
+</body>
+
+</html>
